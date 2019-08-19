@@ -1,17 +1,29 @@
 class Source < ActiveRecord::Base
-    has_many :favorite_sources
+    has_many :favourite_sources  
+    has_many :users, through: :favourite_sources
 
     #def self.all_books_with_less_than_99_pages(category)
     #    Book.all.where("page_count < 100")
     #end
     
-    def self.source_search_by_category(category_input)
-    self.find_by(category: category_input)
+    #find sources by category
+    def self.source_search_by_category(category_search)
+    self.all.find_by(category: category_search)
     end
 
-    def self.source_search_by_name(name_input)
-    self.find_by(category: name_input)
+    #find sources by name
+    def self.source_search_by_name(name_search)
+    self.all.find_by(category: name_search)
     end
 
+    #get all source categories
+    def self.get_categories
+    self.all.map {|source| source.category}.uniq
+    ends
+
+    #returns source details with text, currently called from User class
+    def self.return_text(id)
+      self.all.select{|source| source.id == id}
+    end
 
 end #class end
