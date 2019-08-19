@@ -4,6 +4,8 @@ require "sinatra/activerecord"
 require 'ostruct'
 require 'date'
 require_relative '../bin/app/models/User.rb'
+require_relative '../bin/app/new_user.rb'
+require_relative '../bin/app/get_input.rb'
 
 Bundler.require
 
