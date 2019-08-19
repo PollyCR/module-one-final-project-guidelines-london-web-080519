@@ -21,6 +21,7 @@ class CLI
         elsif selection == "Find source"
             search_sources
         elsif selection == "My reading list" 
+            display_favorite_articles
         end            
             # binding.pry 
      end
@@ -28,33 +29,20 @@ class CLI
 def search_articles 
     prompt = TTY::Prompt.new
     $keyword_search = prompt.ask("Please enter the article keyword:")
+    search_keyword
 end
 
 
 def search_sources_by_category 
     prompt = TTY::Prompt.new
-    selection = prompt.select("Please choose from the following categories:",%w(General Technology Business Sports Entertainment Health Science))
-    if selection == "General"
-        search_general
-    elsif selection == "Technology"
-        search_technology
-    elsif selection == "Business"
-        search_business
-    elsif selection == "Sports"
-        search_sports
-    elsif selection == "Entertainment"
-        search_entertainment
-    elsif selection == "Health"
-        search_health
-    elsif selection == "Science"
-        search_science
-    end
-
+    category_search = prompt.select("Please choose from the following categories:",%w(General Technology Business Sports Entertainment Health Science))
+    Source.source_search_by_category(category_search)
 end
 
 def search_sources_by_name 
     prompt = TTY::Prompt.new 
-    $source_name_search = prompt.ask("Please enter the name of the source you wish to find:")
+    $name_search = prompt.ask("Please enter the name of the source you wish to find:")
+    Source.source_search_by_name(name_search)
 end 
 
 def search_sources

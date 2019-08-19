@@ -1,6 +1,6 @@
 class CreateFavoriteArticle < ActiveRecord::Migration[5.2]
     def change
-      create_table :articles do |table|
+      create_table :favorite_articles do |table|
         table.string :author
         table.string :title
         table.string :description

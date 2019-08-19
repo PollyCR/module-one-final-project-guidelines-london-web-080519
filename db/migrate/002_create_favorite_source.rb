@@ -1,4 +1,4 @@
-class CreateFavoriteSource < ActiveRecord::Migration[4.2]
+class CreateFavoriteSource < ActiveRecord::Migration[5.2]
     def change
         create_table :favorite_sources do |table|
             table.string :user_id
