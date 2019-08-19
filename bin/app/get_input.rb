@@ -4,13 +4,13 @@ class CLI
         puts "Welcome to NewsCruncher! Please enter your name:"
       end 
       
-      def find_or_create_by_name(name)
+    def find_or_create_by_name(name)
         User.find_or_create_by(name: name)
-      end 
+    end 
     
-      def welcome(name)
+    def welcome(name)
         puts "Welcome, #{name}!"
-      end 
+    end 
     
     def welcome_options 
     puts "Please select from the following options: 
@@ -22,8 +22,7 @@ class CLI
     5. My favourite sources"
 
     welcome_select(input = gets.chomp)
-
-end
+    end
 
 def go_back
     puts "Type 'back' to go back." 
@@ -40,7 +39,6 @@ end
 
 
 def welcome_select(input)
-    # binding.pry
     input = input.to_i
     if input==1 
         puts "Here are the headlines from your favourite sources."
@@ -60,25 +58,35 @@ def welcome_select(input)
     else invalid_command
     end
     go_back
-
 end
 
 def search_sources
 puts "1.    Search by name
 2.  Search by category"
 source_search_select(input=gets.chomp)
+# source = #the id of the source they have found and wish to add to pass into save source method 
 end
 
 def source_search_select(input)
     input = input.to_i
     if input == 1
         puts "Please enter the source name"
-    elsif input == 2 
-        puts "Please enter the source category"
-    else invalid_command 
+        # input = gets.chomp
+        # search_source_by_name(input)
+     elsif input == 2 
+        puts "Choose from the following source categories: 
+        1.  General
+        2.  Technology
+        3.  Business
+        4.  Sports
+        5.  Health
+        6.  Science
+        7.  Entertainment"
+        # input = gets.chomp.to_i
+        # search_source_by_category(input)
+        else invalid_command 
         go_back 
-end
+    end
 end
 
-
-end 
+end

@@ -1,4 +1,4 @@
 class User < ActiveRecord::Base
-has_many :favourite_sources 
-has_many :favourite_articles
+has_many :favorite_sources 
+has_many :favorite_articles
 end
