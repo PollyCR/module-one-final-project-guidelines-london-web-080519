@@ -25,22 +25,39 @@ class CLI
 
 end
 
+def go_back
+    puts "Type 'back' to go back." 
+    input = gets.chomp
+    if input == "back"
+        welcome_options 
+    else invalid_command
+    end
+end
+
+def invalid_command 
+    puts "Invalid command"
+end
+
 
 def get_input(input)
     # binding.pry
     input = input.to_i
     if input==1 
         puts "Here are the headlines from your favourite sources."
-    elsif input == 2 
+        go_back
+    elsif input == 2 || input == 3
         puts "Please enter a search term"
-    elsif input == 3 
-        puts "Please enter a search term"
+        go_back
     elsif input == 4 
         puts "Here is your reading list:"
+        go_back
     elsif input == 5
-        puts "Here are your favourite sources "
-    else puts "Invalid command"
-    end 
+        puts "Here are your favourite sources:"
+        go_back
+    else invalid_command
+    end
+    go_back
+
 end
 end 
 
