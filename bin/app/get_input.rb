@@ -10,8 +10,6 @@ class CLI
        $name = prompt.ask('What is your name?', default: ENV['USER'])
        welcome($name)
       end 
-
-
     
     def welcome_options 
         prompt = TTY::Prompt.new 
@@ -27,13 +25,9 @@ class CLI
             # binding.pry 
      end
 
-def invalid_command 
-    puts "Invalid command"
-end
-
 def search_articles 
     prompt = TTY::Prompt.new
-    prompt.ask("Please enter the article keyword:")
+    $keyword_search = prompt.ask("Please enter the article keyword:")
 end
 
 
@@ -60,7 +54,7 @@ end
 
 def search_sources_by_name 
     prompt = TTY::Prompt.new 
-    $search = prompt.ask("Please enter the name of the source you wish to find:")
+    $source_name_search = prompt.ask("Please enter the name of the source you wish to find:")
 end 
 
 def search_sources
