@@ -41,7 +41,7 @@ end
 
 def search_sources_by_name 
     prompt = TTY::Prompt.new 
-    $name_search = prompt.ask("Please enter the name of the source you wish to find:")
+    name_search = prompt.ask("Please enter the name of the source you wish to find:")
     Source.source_search_by_name(name_search)
 end 
 

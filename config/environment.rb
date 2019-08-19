@@ -13,9 +13,11 @@ require "bundler/setup"
 require "sinatra/activerecord"
 require "active_record"
 require 'ostruct'
+require 'rest-client'
 require 'tty-prompt'
 require 'colorize'
 require 'date'
+require 'json'
 require_relative '../bin/app/models/Source.rb'
 require_relative '../bin/app/models/User.rb'
 require_relative '../bin/app/models/Favorite_Source.rb'

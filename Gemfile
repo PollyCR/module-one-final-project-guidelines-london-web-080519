@@ -10,3 +10,4 @@ gem "require_all"
 gem 'rspec'
 gem 'tty-prompt'
 gem 'colorize'
+gem 'json'
