@@ -1,4 +1,4 @@
-require_relative '../config/environment'
+require_relative './config/environment.rb'
 
 cli = CLI.new
 prompt = TTY::Prompt.new 
