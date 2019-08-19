@@ -15,6 +15,7 @@ require "active_record"
 require 'ostruct'
 require 'date'
 require_relative '../bin/app/models/Source.rb'
+require 'tty-prompt'
 
 Bundler.require
 

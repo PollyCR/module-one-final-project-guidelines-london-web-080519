@@ -21,7 +21,7 @@ class CLI
     4. My reading list
     5. My favourite sources"
 
-    get_input(input = gets.chomp)
+    welcome_select(input = gets.chomp)
 
 end
 
@@ -39,7 +39,7 @@ def invalid_command
 end
 
 
-def get_input(input)
+def welcome_select(input)
     # binding.pry
     input = input.to_i
     if input==1 
@@ -49,8 +49,7 @@ def get_input(input)
         puts "Please enter a search term:"
         
     elsif input == 3
-        puts "1.    Search by name
-        2.  Search by category"
+        search_sources
 
     elsif input == 4 
         puts "Here is your reading list:"
@@ -63,5 +62,23 @@ def get_input(input)
     go_back
 
 end
-end 
 
+def search_sources
+puts "1.    Search by name
+2.  Search by category"
+source_search_select(input=gets.chomp)
+end
+
+def source_search_select(input)
+    input = input.to_i
+    if input == 1
+        puts "Please enter the source name"
+    elsif input == 2 
+        puts "Please enter the source category"
+    else invalid_command 
+        go_back 
+end
+end
+
+
+end 
