@@ -5,3 +5,12 @@ def new_user
     user.save 
     return user
   end
+
+  def get_name
+    name = gets.chomp 
+  end 
+  
+  def find_or_create_by_name 
+    User.find_or_create_by(name: name)
+    name = gets.chomp 
+  end 
