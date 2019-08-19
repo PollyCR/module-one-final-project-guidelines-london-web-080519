@@ -45,8 +45,12 @@ def get_input(input)
     if input==1 
         puts "Here are the headlines from your favourite sources."
 
-    elsif input == 2 || input == 3
-        puts "Please enter a search term"
+    elsif input == 2
+        puts "Please enter a search term:"
+        
+    elsif input == 3
+        puts "1.    Search by name
+        2.  Search by category"
 
     elsif input == 4 
         puts "Here is your reading list:"
