@@ -31,6 +31,12 @@ def invalid_command
     puts "Invalid command"
 end
 
+def search_articles 
+    prompt = TTY::Prompt.new
+    prompt.ask("Please enter the article keyword:")
+end
+
+
 def search_sources_by_category 
     prompt = TTY::Prompt.new
     selection = prompt.select("Please choose from the following categories:",%w(General Technology Business Sports Entertainment Health Science))
