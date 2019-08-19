@@ -44,16 +44,16 @@ def get_input(input)
     input = input.to_i
     if input==1 
         puts "Here are the headlines from your favourite sources."
-        go_back
+
     elsif input == 2 || input == 3
         puts "Please enter a search term"
-        go_back
+
     elsif input == 4 
         puts "Here is your reading list:"
-        go_back
+
     elsif input == 5
         puts "Here are your favourite sources:"
-        go_back
+
     else invalid_command
     end
     go_back
