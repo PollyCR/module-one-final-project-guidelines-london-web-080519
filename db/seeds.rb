@@ -19,6 +19,7 @@ def articles
     articles = JSON.parse(RestClient.get 'https://newsapi.org/v2/top-headlines?language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad')
     article_hash = articles['articles']
     article_hash.each {|article| Article.create(source_id: Source.source_search_name(article['source']['id']).id, author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
+    return articles 
 end 
     articles
 
