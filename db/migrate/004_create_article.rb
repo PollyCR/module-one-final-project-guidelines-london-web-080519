@@ -5,8 +5,8 @@ class CreateArticle < ActiveRecord::Migration[5.2]
         table.string :title
         table.string :description
         table.text :url
-        table.text :url_to_image 
-        table.datetime :published_at 
+        table.text :urlToImage 
+        table.datetime :publishedAt 
         table.text :content
       end
     end

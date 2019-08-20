@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 6) do
+
+  create_table "articles", force: :cascade do |t|
+    t.string "author"
+    t.string "title"
+    t.string "description"
+    t.text "url"
+    t.text "urlToImage"
+    t.datetime "publishedAt"
+    t.text "content"
+  end
+
+  create_table "favorite_articles", force: :cascade do |t|
+    t.string "author"
+    t.string "title"
+    t.string "description"
+    t.text "url"
+    t.text "urlToImage"
+    t.datetime "publishedAt"
+    t.text "content"
+  end
 
   create_table "favorite_sources", force: :cascade do |t|
     t.integer "user_id"
@@ -19,14 +39,15 @@ ActiveRecord::Schema.define(version: 4) do
 
   create_table "sources", force: :cascade do |t|
     t.string "name"
+    t.string "description"
     t.string "url"
     t.string "category"
+    t.string "language"
+    t.string "country"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
 end
