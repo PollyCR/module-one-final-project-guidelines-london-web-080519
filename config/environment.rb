@@ -7,8 +7,9 @@ require 'ostruct'
 require 'date'
 require 'pry'
 require_relative '../app/models/User.rb'
+require_relative '../app/models/Source.rb'
 require_relative '../app/models/Favorite_Source.rb'
-require_relative '../db/seeds.rb'
+require_relative '../db/seed.rb'
 require_relative '../app/get_input.rb'
 
 

@@ -3,8 +3,8 @@ require './config/environment.rb'
 def sources 
 sources = JSON.parse(RestClient.get 'https://newsapi.org/v2/sources?language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad')
 source_hash = sources['sources']
-binding.pry
 source_hash.each {|source| source = Source.new}
+binding.pry
 end 
 sources
 
