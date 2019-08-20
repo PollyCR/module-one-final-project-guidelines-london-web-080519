@@ -12,20 +12,12 @@ class Source < ActiveRecord::Base
 
     #find sources by category
     def self.source_search_by_category(category_search)
-    category_output = self.all.select {|source|source.category == category_search}
+      category_output = self.all.select {|source|source.category == category_search}
     source_names_by_cat = category_output.map{|source|source.name}
-    source_names_by_cat
-    # binding.pry
-    # if category_output == nil
-    #   puts "No sources found for that category"
-    # else
-    # category_output.each do |source|
-    #   puts "#{source.id} - #{source.name}"
-    # end
-    # end
+      source_names_by_cat
     end
 
-    self.source_search_by_category("general")
+
 
     #find sources by name
     def self.source_search_by_name(name_search)
