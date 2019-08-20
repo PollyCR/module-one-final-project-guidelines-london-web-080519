@@ -1,5 +1,6 @@
 class FavoriteSource < ActiveRecord::Base
-belongs_to :users
+belongs_to :source
+belongs_to :user
 has_many :articles
 
 
