@@ -19,11 +19,15 @@ class Source < ActiveRecord::Base
     #get all source categories
     def self.get_categories
     self.all.map {|source| source.category}.uniq
-    ends
+    end
 
     #returns source details with text, currently called from User class
     def self.return_text(id)
-      self.all.select{|source| source.id == id}
+      self.all.select{|source| source.id == id}.map{|source|source.name}
     end
+
+    #def self.return_names
+    #  return_text.map{|source| source.name}
+    #end
 
 end #class end
