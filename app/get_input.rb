@@ -15,7 +15,7 @@ class CLI
         prompt = TTY::Prompt.new
         selection = prompt.select("Please select from the following options:".colorize(:green), ["Headlines","Latest from favourite sources","Find article","Find source","My reading list","My favourite sources"])
     if selection == "Headlines"
-        binding.pry
+        # binding.pry
         headlines
     elsif selection == "Latest from favourite sources"
             self.get_favorites

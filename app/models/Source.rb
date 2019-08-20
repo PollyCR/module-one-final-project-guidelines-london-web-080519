@@ -1,11 +1,8 @@
-require_relative '../config/environment.rb'
+require_relative '../../config/environment.rb'
 
 class Source < ActiveRecord::Base
     has_many :favourite_sources  
     has_many :users, through: :favourite_sources
-
-
-    end
 
     #def self.all_books_with_less_than_99_pages(category)
     #    Book.all.where("page_count < 100")
