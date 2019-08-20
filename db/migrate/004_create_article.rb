@@ -8,6 +8,7 @@ class CreateArticle < ActiveRecord::Migration[5.2]
         table.text :url_to_image 
         table.datetime :published_at 
         table.text :content
+        table.integer :source_id
       end
     end
   end

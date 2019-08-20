@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 4) do
+ActiveRecord::Schema.define(version: 5) do
+
+  create_table "articles", force: :cascade do |t|
+    t.string "author"
+    t.string "title"
+    t.string "description"
+    t.text "url"
+    t.text "url_to_image"
+    t.datetime "published_at"
+    t.text "content"
+    t.integer "source_id"
+  end
+
+  create_table "favorite_articles", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "article_id"
+    t.integer "source_id"
+  end
 
   create_table "favorite_sources", force: :cascade do |t|
     t.integer "user_id"
@@ -24,9 +41,7 @@ ActiveRecord::Schema.define(version: 4) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "name"
   end
 
 end

@@ -6,9 +6,6 @@ class CreateFavoriteSource < ActiveRecord::Migration[5.2]
             table.timestamp
         end
     end
-
-
-    
     end
 
     
