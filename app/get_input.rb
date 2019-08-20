@@ -11,7 +11,6 @@ class CLI
         prompt = TTY::Prompt.new 
        $name = prompt.ask('What is your name?', default: ENV['USER'])
        welcome($name)
-       $current_user = User.find_or_create_by(name: $name)
       end 
     
     def welcome_options 
@@ -30,15 +29,6 @@ class CLI
             # binding.pry 
      end
 
-     def save_prompt(source_name, user)
-        prompt = TTY::Prompt.new 
-        save_source = prompt.yes?("Would you like to save this source?")
-        if true 
-            User.save_favorite_by_name(source_name, user)
-        end
-    end
-
-
 def search_articles 
     prompt = TTY::Prompt.new
     $keyword_search = prompt.ask("Please enter the article keyword:")
@@ -49,14 +39,7 @@ end
 def search_sources_by_category 
     prompt = TTY::Prompt.new
     category_search = prompt.select("Please choose from the following categories:",%w(General Technology Business Sports Entertainment Health Science))
-    Source.source_search_by_category(category_search.downcase)
-    prompt = TTY::Prompt.new 
-    search_results = Source.source_search_by_category(category_search.downcase)
-    # binding.pry
-    to_save = prompt.select("Please choose from the following sources:",search_results)
-    #binding.pry
-    save_prompt(to_save, $current_user)
-    
+    Source.source_search_by_category(category_search)
 end
 
 def search_sources_by_name 
