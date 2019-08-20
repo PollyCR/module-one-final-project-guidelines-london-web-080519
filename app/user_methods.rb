@@ -10,7 +10,4 @@ def new_user
     name = gets.chomp 
   end 
   
-  def find_or_create_by_name 
-    User.find_or_create_by(name: name)
-    name = gets.chomp 
-  end 
+
