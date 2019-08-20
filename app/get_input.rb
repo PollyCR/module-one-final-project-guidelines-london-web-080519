@@ -22,19 +22,31 @@ class CLI
     elsif selection == "Latest from favourite sources"
             self.get_favorites
         elsif selection == "Find article"
-            Article.article_search_by_keyword(keyword=gets.chomp)
+            search_articles
         elsif selection == "Find source"
             search_sources
         elsif selection == "My reading list" 
-            display_favorite_articles
+            self.get_favorites_readable
         end            
             # binding.pry 
      end
 
+     def go_back? 
+        prompt = TTY::Prompt.new 
+        back = prompt.yes?("Would you like to go back?")
+        if true 
+            welcome_options 
+        end 
+    end
+
 def search_articles 
     prompt = TTY::Prompt.new
-    $keyword_search = prompt.ask("Please enter the article keyword:")
-    search_keyword
+    keyword_search = prompt.ask("Please enter the article keyword:")
+    articles = Article.article_search_by_keyword(keyword_search.downcase)
+    # binding.pry
+    to_save = prompt.select("Articles found:", articles)
+    save_prompt(to_save, $current_user)
+    binding.pry
 end
 
 def save_prompt(source_name, user)
@@ -43,6 +55,7 @@ def save_prompt(source_name, user)
     if true 
         User.save_favorite_by_name(source_name, user)
     end
+    go_back?
 end
 
 def search_sources_by_category 
@@ -55,6 +68,7 @@ def search_sources_by_category
         to_save = prompt.select("Please choose from the following sources:",search_results)
         #binding.pry
         save_prompt(to_save, $current_user)
+        go_back?
 end
 
 def search_sources_by_name 
@@ -71,6 +85,7 @@ if selection.include?("name")
 elsif selection.include?("category")
         search_sources_by_category
     end
+    go_back?
 end 
 
 

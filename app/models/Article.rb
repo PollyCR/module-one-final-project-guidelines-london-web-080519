@@ -9,7 +9,8 @@ class Article < ActiveRecord::Base
     
     def self.article_search_by_keyword(keyword)
        articles_with_keyword = Article.where("content LIKE ?"|| "title LIKE?", "%#{keyword}%")
-       binding.pry
-       return articles_with_keyword
+       articles_by_title = articles_with_keyword.map{|article|article.title}
+       articles_by_title
     end
+    
 end 
