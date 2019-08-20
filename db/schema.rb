@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 5) do
 
   create_table "articles", force: :cascade do |t|
+    t.integer "source_id"
     t.string "author"
     t.string "title"
     t.string "description"
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(version: 5) do
   end
 
   create_table "sources", force: :cascade do |t|
+    t.string "source_code"
     t.string "name"
     t.string "description"
     t.string "url"

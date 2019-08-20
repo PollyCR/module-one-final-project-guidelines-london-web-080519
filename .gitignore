@@ -17,3 +17,4 @@ db/*.db
 Gemfile.rb
 Gemfile.lock
 Rakefile.rb
+schema.rb

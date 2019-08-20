@@ -30,14 +30,18 @@ class Source < ActiveRecord::Base
     self.all.find_by(name: name_search)
     end
 
+    def self.source_search_name(name_search)
+      self.all.find{|source|source.source_code == name_search}
+    end 
+
     #get all source categories
     def self.get_categories
-    self.all.map {|source| source.category}.uniq
+    self.all.map{|source| source.category}.uniq
     end
 
     #returns source details with text, currently called from User class
     def self.return_text(id)
-      self.all.select{|source| source.id == id}.map{|source|source.name}
+      self.all.find{|source| source.id == id}.map{|source|source.name}
     end
 
     #def self.return_names
