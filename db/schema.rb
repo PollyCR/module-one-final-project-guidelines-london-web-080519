@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 5) do
     t.string "title"
     t.string "description"
     t.text "url"
-    t.text "url_to_image"
-    t.datetime "published_at"
+    t.text "urlToImage"
+    t.datetime "publishedAt"
     t.text "content"
     t.integer "source_id"
   end

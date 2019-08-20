@@ -21,8 +21,7 @@ class CLI
     elsif selection == "Latest from favourite sources"
             self.get_favorites
         elsif selection == "Find article"
-            
-            article_search_by_keyword(keyword=gets.chomp)
+            Article.article_search_by_keyword(keyword=gets.chomp)
         elsif selection == "Find source"
             search_sources
         elsif selection == "My reading list" 
