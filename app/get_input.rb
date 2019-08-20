@@ -26,8 +26,10 @@ class CLI
         elsif selection == "Find source"
             search_sources
         elsif selection == "My reading list" 
-            display_favorite_articles
-        end            
+            display_favorite_articles           
+        elsif selection == "My favourite sources"
+            display_favorite_sources
+        end
             # binding.pry 
      end
 
@@ -72,6 +74,10 @@ elsif selection.include?("category")
         search_sources_by_category
     end
 end 
+
+def display_favorite_sources
+    FavoriteSource.get_favoirte_sources_by_name($current_user)
+end
 
 
 end
