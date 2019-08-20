@@ -11,7 +11,7 @@ def headlines
     return headlines
 end 
 def sources 
-sources = JSON.parse(RestClient.get 'https://newsapi.org/v2/sources?apiKey=18f1d787fdf24f74b097f41574c6dbad')
+sources = JSON.parse(RestClient.get 'https://newsapi.org/v2/sources?language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad')
 source_hash = sources['sources']
 return source_hash
 source_hash.each {|source| source = Source.new}
