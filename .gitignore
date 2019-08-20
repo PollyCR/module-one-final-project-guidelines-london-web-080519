@@ -5,9 +5,14 @@ log
 node_modules
 out
 tmp
+config
 
 *.iml
 *.log
 *.swp
+*.lock
 
 db/*.db
+
+Gemfile.rb
+Rakefile.rb
