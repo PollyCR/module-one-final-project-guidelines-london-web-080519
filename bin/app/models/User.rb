@@ -2,6 +2,7 @@
 class User < ActiveRecord::Base
     has_many :favourite_sources  
     has_many :sources, through: :favourite_sources
+    has_many :articles, through: :favorite_articles
 
 #saves a favorite given a source_id as "source" argument
 def save_favorite(source)

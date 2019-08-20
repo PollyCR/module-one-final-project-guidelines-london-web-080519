@@ -8,3 +8,6 @@ gem "pry"
 gem 'rake'
 gem "require_all"
 gem 'rspec'
+gem 'tty-prompt'
+gem 'colorize'
+gem 'json'

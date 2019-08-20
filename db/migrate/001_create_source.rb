@@ -1,4 +1,4 @@
-class CreateSource < ActiveRecord::Migration[4.2]
+class CreateSource < ActiveRecord::Migration[5.2]
     def change
         create_table :sources do |table|
             table.string :name
