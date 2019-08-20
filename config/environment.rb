@@ -9,21 +9,21 @@
 # Dir[File.join(File.dirname(__FILE__), "../app/models", "*.rb")].each {|f| require f}
 
 require "bundler/setup"
-
-require "sinatra/activerecord"
-require "active_record"
-require 'ostruct'
-require 'rest-client'
-require 'tty-prompt'
-require 'colorize'
-require 'date'
-require 'json'
+Bundler.require
+# require "sinatra/activerecord"
+# require "active_record"
+# require 'ostruct'
+# require 'rest-client'
+# require 'tty-prompt'
+# require 'colorize'
+# require 'date'
+# require 'json'
 require_relative '../bin/app/models/Source.rb'
 require_relative '../bin/app/models/User.rb'
 require_relative '../bin/app/models/Favorite_Source.rb'
 
 
-Bundler.require
+
 
 Dir[File.join(File.dirname(__FILE__), "../app/models", "*.rb")].each {|f| require f}
 
