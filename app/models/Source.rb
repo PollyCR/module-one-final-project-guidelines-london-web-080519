@@ -1,3 +1,5 @@
+require_relative '../../config/environment.rb'
+
 class Source < ActiveRecord::Base
     has_many :favourite_sources  
     has_many :users, through: :favourite_sources
