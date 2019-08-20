@@ -21,13 +21,13 @@ ActiveRecord::Schema.define(version: 5) do
     t.text "urlToImage"
     t.datetime "publishedAt"
     t.text "content"
-    t.integer "source_id"
   end
 
   create_table "favorite_articles", force: :cascade do |t|
     t.integer "user_id"
     t.integer "article_id"
     t.integer "source_id"
+    t.datetime "created"
   end
 
   create_table "favorite_sources", force: :cascade do |t|
