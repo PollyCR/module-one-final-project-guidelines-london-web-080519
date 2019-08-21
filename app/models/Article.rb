@@ -5,6 +5,20 @@ class Article < ActiveRecord::Base
     has_many :users, through: :favorite_articles
     has_many :articles
 
+
+    def self.article_search_by_keyword(keyword_search)
+       articles_with_keyword = Article.where("content LIKE ?"|| "title LIKE?", "%#{keyword_search}%")
+    end
+
+    def self.title
+        article_by_title = self.all.map{|article|article.title}
+    end
+
+
+    def self.get_article_content(articles_with_keyword)
+        article_content = articles_with_keyword.map{|article|article.content}
+    end 
+
     
     def self.article_search_by_keyword(keyword)
        articles_with_keyword = Article.where("content LIKE ?"|| "title LIKE?", "%#{keyword}%")
@@ -31,5 +45,6 @@ class Article < ActiveRecord::Base
     #   t.text "urlToImage"
     #   t.datetime "publishedAt"
     #   t.text "content"
+
 
 end 
