@@ -21,8 +21,6 @@ class Article < ActiveRecord::Base
 
     
     
-<<<<<<< HEAD
-=======
     def self.article_search_by_keyword(keyword)
        articles_with_keyword = Article.where("content LIKE ?"|| "title LIKE?", "%#{keyword}%")
        
@@ -32,5 +30,4 @@ class Article < ActiveRecord::Base
     # def self.article_find_by_id(id)
     #     article.find(id)
     # end 
->>>>>>> ce9b3f91c8693beb96f871054f8f628b2b4a03d9
 end 
