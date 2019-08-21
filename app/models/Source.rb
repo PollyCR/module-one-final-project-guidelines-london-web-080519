@@ -1,16 +1,9 @@
 require_relative '../../config/environment.rb'
 
-#addtion to test
 
 class Source < ActiveRecord::Base
     has_many :favorite_sources  
     has_many :users, through: :favorite_sources
-
-    #def self.all_books_with_less_than_99_pages(category)
-    #    Book.all.where("page_count < 100")
-    #end
-
-
 
     #find sources by category
     def self.source_search_by_category(category_search)
@@ -18,7 +11,6 @@ class Source < ActiveRecord::Base
     source_names_by_cat = category_output.map{|source|source.name}
       source_names_by_cat
     end
-
 
 
     #find sources by name
@@ -39,6 +31,10 @@ class Source < ActiveRecord::Base
     def self.return_text(id)
       sources = self.all.find{|source| source.id == id}
       print "#{sources.name} Category: #{sources.category} Description: #{sources.description}\n\n"   
+    end
+
+    def domain(source)
+      Source.find{|source|source == source}.domain
     end
 
     #def self.return_names

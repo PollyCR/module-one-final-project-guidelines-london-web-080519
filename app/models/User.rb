@@ -1,6 +1,7 @@
 
 class User < ActiveRecord::Base
-    has_many :favorite_sources  
+    has_many :favorite_sources
+    has_many :favorite_articles 
     has_many :sources, through: :favorite_sources
     has_many :articles, through: :favorite_articles
 
@@ -28,22 +29,21 @@ def get_favorite_sources
 end
 
 
+def get_favorite_articles 
+    self.articles.map{|article|article.title}
+end 
 
-def self.get_favorite_articles
-    user_id = User.all.map{|user|user.id}[0]
+def self.favorite_articles
+    user_id = User.all.map{|user|user.id}
     # binding.pry
     favorite_articles = FavoriteArticle.all.where("user_id = #{user_id}")
-    #binding.pry
-    article_titles = favorite_articles.map{|article|article.title}
-    article_titles
+    binding.pry
 end
 
 #returns user's favorite source list, formatted
 def get_favorites_readable
     get_favorites.map {|favorite| Source.return_text(favorite.source_id)}
 end
-
-
 
 #saves a favorite article
 def self.save_favorite_article(article, user)
