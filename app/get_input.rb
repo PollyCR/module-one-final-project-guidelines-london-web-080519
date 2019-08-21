@@ -19,8 +19,8 @@ class CLI
         prompt = TTY::Prompt.new
         selection = prompt.select("Please select from the following options:".colorize(:green), ["Headlines","Latest from favourite sources","Find article","Find source","My reading list","My favourite sources"])
     if selection == "Headlines"
-        puts headlines
-        # binding.pry
+   headlines
+
     elsif selection == "Latest from favourite sources"
             self.get_favorites
         elsif selection == "Find article"
@@ -28,21 +28,16 @@ class CLI
         elsif selection == "Find source"
             search_sources
         elsif selection == "My reading list" 
-<<<<<<< HEAD
-            self.get_favorites_readable
-        end            
-=======
             display_favorite_articles           
         elsif selection == "My favourite sources"
             display_favorite_sources
         end
->>>>>>> ce9b3f91c8693beb96f871054f8f628b2b4a03d9
             # binding.pry 
      end
 
 def search_articles 
     prompt = TTY::Prompt.new
-    keyword_search = prompt.ask("Please enter the article keyword:")
+    keyword_search = prompt.ask("Please enter the article keyword:".colorize(:magenta))
     articles_with_keyword = Article.article_search_by_keyword(keyword_search)
     article_selection = prompt.select("Articles found:", articles_with_keyword.title)
     article_content = Article.find{|article|article.title == article_selection}.content
@@ -52,7 +47,7 @@ end
 
 def save_article(article,user)
     prompt = TTY::Prompt.new 
-    save_article = prompt.yes?("Would you like to save this article?")
+    save_article = prompt.yes?("Would you like to save this article?".colorize(:cyan))
     if true 
         User.save_favorite_article_by_id(save_article.id,user)
     else welcome_options
