@@ -20,6 +20,7 @@ class Article < ActiveRecord::Base
     end 
 
     
+    
     def self.article_search_by_keyword(keyword)
        articles_with_keyword = Article.where("content LIKE ?"|| "title LIKE?", "%#{keyword}%")
        
