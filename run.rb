@@ -5,3 +5,4 @@ prompt = TTY::Prompt.new
 cli.get_name 
 cli.welcome_options
 input = gets.chomp 
+cli.welcome_options

@@ -6,9 +6,9 @@ $article_hash
 def articles
     articles = JSON.parse(RestClient.get 'https://newsapi.org/v2/top-headlines?language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad')
     article_hash = articles['articles']
-    article_hash.each {|article| Article.create(source_id: Source.source_search_name(article['source']['id']).id, author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
-    return article_hash 
+    article_hash.each {|article| Article.create(source_id: Source.source_search_name(article['source']['id']), author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
 end 
+articles
 
 
 def sources 
@@ -22,10 +22,4 @@ def find_source_name(name)
 sources.select{|source|source.name==name}
 end 
 
-def headlines 
-    response = JSON.parse(RestClient.get 'https://newsapi.org/v2/top-headlines?language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad')
-    data = response['articles']
-    headlines = data.map{|key,value| key['title']}
-    return headlines
-end 
 

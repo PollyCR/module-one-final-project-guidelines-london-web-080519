@@ -17,8 +17,14 @@ def self.save_favorite(source, user)
 end
 
 #private method to get all favorites by user instance
-def get_favorites
-    favorite_list = FavoriteSource.all.where("user_id = #{self.id}")
+def get_favorite_sources
+    favorite_sources = FavoriteSource.all.where("user_id = #{self.id}")
+    puts favorite_sources
+end
+
+def get_favorite_articles
+    favorite_articles = FavoriteSource.all.where("user_id = #{self.id}")
+    puts favorite_articles
 end
 
 #returns user's favorite source list, formatted
@@ -29,15 +35,18 @@ end
 
 
 #saves a favorite article
-def self.save_favorite_article_by_id(artilce_id, user)
-    source = Source.source_search_by_name(name_search)
-    if source == nil
-     print "The source name entered is incorrect"
-    else
-    save_favorite(source.id, user)
-    puts "Success! The source is now available in your Favorite Sources."
-    end
- end
+def self.save_favorite_article(article, user)
+    FavoriteArticle.create(user_id: user.id, article_id: article)
+    puts "Success! The article is now available in your Reading List."
+end
+#     article = Source.source_search_by_name(name_search)
+#     if source == nil
+#      print "The source name entered is incorrect"
+#     else
+#     save_favorite(source.id, user)
+#     puts "Success! The source is now available in your Favorite Sources."
+#     end
+#  end
 
 
 end
