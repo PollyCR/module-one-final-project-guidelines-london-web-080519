@@ -104,7 +104,7 @@ elsif selection.include?("category")
 end 
 
 def display_favorite_sources
-    FavoriteSource.get_favoirte_sources_by_name($current_user)
+    FavoriteSource.get_favorite_sources_by_name($current_user)
 end
 
 
