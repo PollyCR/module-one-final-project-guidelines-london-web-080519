@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 5) do
   create_table "favorite_articles", force: :cascade do |t|
     t.integer "user_id"
     t.integer "article_id"
-    t.integer "source_id"
+    t.string "source_id"
     t.datetime "created"
   end
 

@@ -19,6 +19,15 @@ class Article < ActiveRecord::Base
         article_content = articles_with_keyword.map{|article|article.content}
     end 
 
+
+    def self.return_favorites(user)
+        # self.all.select{|article| article.id = FavoriteArticle.simple_return_favorites(user)}
+
+        output = self.all.select{|article| article.id = FavoriteArticle.simple_return_favorites(user)}
+        output.map{|art|art.title}
+
+
+     end
     
     
     def self.article_search_by_keyword(keyword)
