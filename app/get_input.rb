@@ -19,7 +19,8 @@ class CLI
         prompt = TTY::Prompt.new
         selection = prompt.select("Please select from the following options:".colorize(:green), ["Headlines","Latest from favourite sources","Find article","Find source","My reading list","My favourite sources"])
     if selection == "Headlines"
-        headlines
+        puts headlines
+        # binding.pry
     elsif selection == "Latest from favourite sources"
             self.get_favorites
         elsif selection == "Find article"
@@ -46,15 +47,20 @@ def save_article(article,user)
     prompt = TTY::Prompt.new 
     save_article = prompt.yes?("Would you like to save this article?")
     if true 
-        User.save_favorite_article_by_id(article.id,user)
+        User.save_favorite_article_by_id(save_article.id,user)
+    else welcome_options
     end
 end
 
 def headlines
-
-    Article.all 
+    prompt = TTY::Prompt.new
+    headlines = Article.all.map{|article|article.title}
+    todays_headlines = prompt.select("Today's headlines",headlines)
+    article_content = Article.find{|article|article.title == todays_headlines}.content
+    puts article_content
+    save_article(todays_headlines, $current_user)
     
-
+end
 
 def save_prompt(source_name, user)
     prompt = TTY::Prompt.new 
