@@ -1,5 +1,7 @@
 require_relative '../../config/environment.rb'
 
+#addtion to test
+
 class Source < ActiveRecord::Base
     has_many :favourite_sources  
     has_many :users, through: :favourite_sources
@@ -35,7 +37,8 @@ class Source < ActiveRecord::Base
 
     #returns source details with text, currently called from User class
     def self.return_text(id)
-      self.all.find{|source| source.id == id}.map{|source|source.name}
+      sources = self.all.find{|source| source.id == id}
+      print "#{sources.name} Category: #{sources.category} Description: #{sources.description}\n\n"   
     end
 
     #def self.return_names

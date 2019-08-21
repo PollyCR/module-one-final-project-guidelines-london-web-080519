@@ -27,4 +27,17 @@ def get_favorites_readable
 end
 
 
+
+#saves a favorite article
+def self.save_favorite_article_by_id(artilce_id, user)
+    source = Source.source_search_by_name(name_search)
+    if source == nil
+     print "The source name entered is incorrect"
+    else
+    save_favorite(source.id, user)
+    puts "Success! The source is now available in your Favorite Sources."
+    end
+ end
+
+
 end
