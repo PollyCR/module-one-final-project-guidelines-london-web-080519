@@ -32,16 +32,19 @@ def search_articles
     prompt = TTY::Prompt.new 
     keyword_search = prompt.ask("Please enter the article keyword")
     prompt = TTY::Prompt.new 
-    articles_with_keyword = get_articles(keyword_search)
+    articles_with_keyword = Article.where('content LIKE ?',"%#{keyword_search}%").all
+    article_titles = articles_with_keyword.map{|article|article.title}
+    article_selection = prompt.select("The following articles were found:", articles_with_keyword.title)
+    binding.pry
+    # article_list = articles_with_keyword['articles'].map{|article|article
     # binding.pry
-    article_list = articles_with_keyword['articles'].map{|article|article["title"]}
-    # .values[0]
-    # binding.pry
-    create_articles(articles_with_keyword['articles'])
-    articles = prompt.select("Articles matching your search:",article_list)
-    article_content = Article.find{|article|article.title == articles}.content
-    article_to_save = Article.find{|article|article.title == articles}.id
-    puts article_content
-        save_article(article_to_save, $current_user)
-        welcome_options
+    # # .values[0]
+    # # binding.pry
+    # create_articles(articles_with_keyword['articles'])
+    # articles = prompt.select("Articles matching your search:",article_list)
+    # article_content = Article.find{|article|article.title == articles}.content
+    # article_to_save = Article.find{|article|article.title == articles}.id
+    # puts article_content
+    #     save_article(article_to_save, $current_user)
+    #     welcome_options
 end
