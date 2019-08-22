@@ -1,7 +1,7 @@
 class FavoriteSource < ActiveRecord::Base
 belongs_to :source
 belongs_to :user
-has_many :articles
+# has_many :articles
 
 
 def self.get_favorite_sources_by_name(user)

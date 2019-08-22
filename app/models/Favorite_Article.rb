@@ -1,5 +1,5 @@
 class FavoriteArticle < ActiveRecord::Base
-    belongs_to :users
+    belongs_to :user
     belongs_to :article
   
     def favorite_articles

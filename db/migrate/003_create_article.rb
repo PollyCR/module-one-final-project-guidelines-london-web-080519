@@ -1,7 +1,7 @@
 class CreateArticle < ActiveRecord::Migration[5.2]
     def change
       create_table :articles do |table|
-        table.string :source_id
+        table.integer :source_id
         table.string :author
         table.string :title
         table.string :description

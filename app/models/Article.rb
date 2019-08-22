@@ -20,14 +20,14 @@ class Article < ActiveRecord::Base
     end 
 
 
-    def self.return_favorites(user)
-        # self.all.select{|article| article.id = FavoriteArticle.simple_return_favorites(user)}
+    # def self.return_favorites(user)
+    #     # self.all.select{|article| article.id = FavoriteArticle.simple_return_favorites(user)}
 
-        output = self.all.select{|article| article.id = FavoriteArticle.simple_return_favorites(user)}
-        output.map{|art|art.title}
+    #     output = self.all.select{|article| article.id = FavoriteArticle.simple_return_favorites(user)}
+    #     output.map{|art|art.title}
 
 
-     end
+    #  end
     
     
     def self.article_search_by_keyword(keyword)

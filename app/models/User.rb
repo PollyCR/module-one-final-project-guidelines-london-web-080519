@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 def self.save_favorite_by_name(name_search, user)
    source = Source.source_search_by_name(name_search)
    save_favorite(source.id, user)
-   puts "Success! The source is now available in your Favorite Sources."
 end
 
 #saves a favorite given the source id
@@ -33,12 +32,12 @@ def get_favorite_articles
     self.articles.map{|article|article.title}
 end 
 
-def self.favorite_articles
-    user_id = User.all.map{|user|user.id}
-    # binding.pry
-    favorite_articles = FavoriteArticle.all.where("user_id = #{user_id}")
-    binding.pry
-end
+# def self.favorite_articles
+#     user_id = User.all.map{|user|user.id}[0]
+#     # binding.pry
+#     favorite_articles = FavoriteArticle.all.where("user_id = #{user_id}")
+#     binding.pry
+# end
 
 #returns user's favorite source list, formatted
 def get_favorites_readable
@@ -48,7 +47,6 @@ end
 #saves a favorite article
 def self.save_favorite_article(article, user)
     FavoriteArticle.create(user_id: user.id, article_id: article)
-    puts "Success! The article is now available in your Reading List."
 end
 #     article = Source.source_search_by_name(name_search)
 #     if source == nil

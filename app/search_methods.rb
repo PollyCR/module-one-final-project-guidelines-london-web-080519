@@ -40,7 +40,8 @@ def search_articles
     create_articles(articles_with_keyword['articles'])
     articles = prompt.select("Articles matching your search:",article_list)
     article_content = Article.find{|article|article.title == articles}.content
+    article_to_save = Article.find{|article|article.title == articles}.id
     puts article_content
-        save_article(articles, $current_user)
+        save_article(article_to_save, $current_user)
         welcome_options
 end
