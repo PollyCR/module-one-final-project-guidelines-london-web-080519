@@ -12,18 +12,21 @@ class Source < ActiveRecord::Base
       source_names_by_cat
     end
 
-    def id 
-      Source.all.map{|source|source.id}
-     end 
-
-
     #find sources by name
     def self.source_search_by_name(name_search)
     self.all.find_by(name: name_search)
     end
 
-    def self.source_search_name(name_search)
-      self.all.find{|source|source.source_code == name_search}
+    # def get_source_code
+    #   Source.find{|source|source.source_code}
+    # end 
+
+    def self.source_search_code(name_search)
+      source = self.all.find do |source|
+        # binding.pry
+        source.source_code == name_search
+      end
+      # binding.pry
     end 
 
     #get all source categories

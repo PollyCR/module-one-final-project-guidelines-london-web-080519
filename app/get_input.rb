@@ -2,17 +2,9 @@ require_relative '../config/environment.rb'
 
 class CLI
 
-    def create_sources(sources)
-        sources.each {|source| Source.create(source_code: source['id'],name:source['name'], description: source['description'],url: source['url'], category: source['category'], language: source['language'], country: source['country'])}
-       end 
-    
-   def create_articles(article_list)
-            article_list.each{|article|Article.create(source_id: Source.source_search_name(article['source']['id']).id,author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
-   end 
-
     def welcome(name)
         puts "Welcome to NewsCruncher, #{name}!".colorize(:light_blue)
-      end
+    end
 
     def get_name
         prompt = TTY::Prompt.new 
@@ -20,7 +12,7 @@ class CLI
         welcome($name)
         $current_user = User.find_or_create_by(name: $name)
 
-      end 
+    end 
     
     def welcome_options 
         prompt = TTY::Prompt.new
@@ -53,6 +45,13 @@ def headlines
     puts article_content
     save_article(article_id, $current_user)
 end
+
+def create_sources(sources)
+    sources.each {|source| Source.create(source_code: source['id'],name:source['name'], description: source['description'],url: source['url'], category: source['category'], language: source['language'], country: source['country'])}
+   end
+def create_articles(articles)
+    new_articles = articles.each{|article|Article.create(source_id: Source.source_search_code(article['source']['id']),author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
+ end 
 
 def latest_from_favorite_sources
     puts  FavoriteSource.headlines_from_favorite_sources($current_user)
