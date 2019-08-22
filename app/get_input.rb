@@ -24,12 +24,16 @@ class CLI
         latest_from_favorite_sources
         elsif selection == "Find article"
             search_articles
+            welcome_options
         elsif selection == "Find source"
             search_sources
+            welcome_options
         elsif selection == "My favorite articles" 
            display_favorite_articles
+           welcome_options
         elsif selection == "My favorite sources"
             display_favorite_sources
+            welcome_options
         else selection == "Exit"
             exit
         end
@@ -69,16 +73,21 @@ end
 def display_favorite_sources
     favorite_source_names = $current_user.get_favorite_sources
     prompt = TTY::Prompt.new 
-    choose_source = prompt.select("Favorite sources:",favorite_source_names)
-    prompt = TTY::Prompt.new 
-    # source_headlines = get_headlines(choose_source).select{|array|array['articles']}.values[0].each {|article| Article.create(source_id: Source.source_search_name(article['source']['id']).id, author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}[0]
-    article_titles = 
-    binding.pry
-    source_news = prompt.select("Latest news from #{choose_source}",article_titles)
-    article_content = Article.find{|article|article.title == source_news}.content
-    puts article_content
-        save_article(source_news, $current_user)
+    source_name = prompt.select("Favorite sources:",favorite_source_names)
+    source_headlines = get_headlines(source_name)["articles"]
+    # .values[0]
     # binding.pry
+    article_list = create_articles(source_headlines)
+    get_titles = source_headlines.map{|article|article["title"]}
+    clean_titles = get_titles.each{|article|article.slice!" - The Australian Financial Review"}
+    # binding.pry
+    # binding.pry
+    articles = prompt.select("Articles matching your search:",clean_titles)
+    # binding.pry
+    article_content = Article.find{|article|article.title == articles}.content
+    puts article_content
+        save_article(articles, $current_user)
+        welcome_options
     
 end
 

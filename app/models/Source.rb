@@ -40,8 +40,8 @@ class Source < ActiveRecord::Base
       print "#{sources.name} Category: #{sources.category} Description: #{sources.description}\n\n"   
     end
 
-    def domain(source)
-      Source.find{|source|source == source}.domain
+    def domain
+      Source.find{|source|source == self.name}.domain
     end
 
     #def self.return_names
