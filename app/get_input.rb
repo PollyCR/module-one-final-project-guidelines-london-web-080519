@@ -42,11 +42,25 @@ class CLI
      def save_article?(article,user)
         prompt = TTY::Prompt.new 
         save_article = prompt.yes?("Would you like to save this article?")
-        if true 
+        if "no"||"n"
+            welcome_options
+        elsif true 
             FavoriteArticle.create(user_id: user.id,article_id: article)
-            puts "Success! The article is now available in your Reading List."
-        else welcome_options
+            puts "Success! The article is now available in your Favorite Articles."
+       welcome_options
         end
+    end
+
+    def save_source?(article,user)
+        prompt = TTY::Prompt.new 
+        save_source= prompt.yes?("Would you like to save this source?")
+        if "no"||"n"
+            welcome_options
+        elsif true 
+            FavoriteSource.create(user_id: user.id,source_id: source)
+            puts "Success! The source is now available in your Favorite Sources."
+        end
+       welcome_options
     end
 
 def headlines
