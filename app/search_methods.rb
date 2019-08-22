@@ -11,12 +11,6 @@ def search_sources_by_category
         welcome_options
 end
 
-def search_sources_by_name 
-    prompt = TTY::Prompt.new 
-    name_search = prompt.ask("Please enter the name of the source you wish to find:")
-    Source.source_search_by_name(name_search)
-end 
-
 def search_sources
     prompt = TTY::Prompt.new 
     selection = prompt.select("Would you like to search by name, or by category?",["Search by name","Search by category"])
@@ -35,7 +29,9 @@ def search_articles
     articles_with_keyword = Article.where('content LIKE ?',"%#{keyword_search}%").all
     article_titles = articles_with_keyword.map{|article|article.title}
     article_selection = prompt.select("The following articles were found:", articles_with_keyword.title)
-    binding.pry
+    
+
+    
     # article_list = articles_with_keyword['articles'].map{|article|article
     # binding.pry
     # # .values[0]
@@ -44,7 +40,8 @@ def search_articles
     # articles = prompt.select("Articles matching your search:",article_list)
     # article_content = Article.find{|article|article.title == articles}.content
     # article_to_save = Article.find{|article|article.title == articles}.id
-    # puts article_content
-    #     save_article(article_to_save, $current_user)
-    #     welcome_options
+    # puts article_content    
+         article_to_save = Article.find_by(title: article_selection).id
+         save_article(article_to_save, $current_user)
+         welcome_options
 end

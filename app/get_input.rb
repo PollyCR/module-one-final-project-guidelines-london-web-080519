@@ -25,7 +25,7 @@ class CLI
             search_articles
             welcome_options
         elsif selection == "Find source"
-            search_sources
+            search_sources_by_category
             welcome_options
         elsif selection == "My favorite articles" 
            display_favorite_articles
@@ -39,6 +39,16 @@ class CLI
             # binding.pry 
      end
 
+     def save_article?(article,user)
+        prompt = TTY::Prompt.new 
+        save_article = prompt.yes?("Would you like to save this article?")
+        if true 
+            FavoriteArticle.create(user_id: user.id,article_id: article)
+            puts "Success! The article is now available in your Reading List."
+        else welcome_options
+        end
+    end
+
 def headlines
     prompt = TTY::Prompt.new
     headlines = Article.all.map{|article|article.title}
@@ -46,7 +56,7 @@ def headlines
     article_content = Article.find{|article|article.title == todays_headlines}.content
     article_id = Article.find{|article|article.title == todays_headlines}.id
     puts article_content
-    save_article(article_id, $current_user)
+    save_article?(article_id,$current_user)
 end
 
 def create_sources(sources)
@@ -57,39 +67,33 @@ def create_articles(articles)
  end 
 
  def display_favorite_articles
-    get_favorite_articles = $current_user.get_favorite_articles
-    prompt = TTY::Prompt.new
-    #binding.pry
-    articles = $current_user.articles.map{|article| article.title}
-    article_selection = prompt.select("Please select from the below", articles)
-    #puts article_selection
-    article_content = Article.find{|article|article.title == article_selection}.content
-    #article_id = Article.find{|article|article.title == article_selection}.id
-    print article_content
+   prompt = TTY::Prompt.new
+   favorite_articles = FavoriteArticle.where(user_id: $current_user.id)
+   articles = $current_user.articles.map{|article|article.title}
+#    binding.pry
+#    article_titles = Article.select{|article|article.id == }
+#    binding.pry
+   select_article = prompt.select("Select from the following articles:", articles)
+   article_content = Article.find{|article|article.title == select_article}.content
+#    binding.pry
+   puts article_content
+#    binding.pry
 end
+
+
+
 
 def display_favorite_sources
     favorite_source_names = $current_user.get_favorite_sources
     prompt = TTY::Prompt.new 
     source_name = prompt.select("Favorite sources:",favorite_source_names)
     current_source = Source.find_by(name: source_name)
-    current_articles = Article.where(source_code_string: current_source.source_code)
-    binding.pry
-    # source_headlines = get_headlines(source_name)["articles"]
-    # if source_headlines == []
-    #     puts "No articles found!"
-    #     welcome_options
-    # else
-    # article_list = create_articles(source_headlines)
-    # get_titles = source_headlines.map{|article|article['title']}
-    # # get_content = source_headlines.map{|article|article["content"]}q
-    # get_content = Article.select{|article|article.content == source_headlines.content}
-    # articles = prompt.select("Articles matching your search:",get_titles)
-    # article_to_save = Article.find{|article|article.title == articles}.id
-    puts get_content
-        save_article(article_to_save, $current_user)
-        welcome_options
-    # end
+    current_articles = Article.where(source_id: current_source.id)
+    current_article_title=prompt.select("Latest headlines from:",current_articles.title)
+    selected_article = Article.where(title: current_article_title).find{|article|article}.content
+    article_id_to_save = Article.where(title:current_article_title).find{|article|article}.id
+    puts selected_article
+    save_article?(article_id_to_save,$current_user)
 end
 
 

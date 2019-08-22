@@ -46,7 +46,7 @@ end
 
 #saves a favorite article
 def self.save_favorite_article(article, user)
-    FavoriteArticle.create(user_id: user.id, article_id: article)
+    FavoriteArticle.create(user_id: user, article_id: article)
 end
 #     article = Source.source_search_by_name(name_search)
 #     if source == nil
