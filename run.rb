@@ -5,4 +5,6 @@ prompt = TTY::Prompt.new
 cli.get_name 
 loop do cli.welcome_options
 input = gets.chomp 
+unless input == exit
 end 
+end

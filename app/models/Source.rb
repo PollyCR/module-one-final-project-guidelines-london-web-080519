@@ -12,6 +12,10 @@ class Source < ActiveRecord::Base
       source_names_by_cat
     end
 
+    def id 
+      Source.all.map{|source|source.id}
+     end 
+
 
     #find sources by name
     def self.source_search_by_name(name_search)

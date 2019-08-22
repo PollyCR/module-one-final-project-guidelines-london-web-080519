@@ -2,10 +2,17 @@ require_relative '../config/environment.rb'
 
 class CLI
 
+    def create_sources(sources)
+        sources.each {|source| Source.create(source_code: source['id'],name:source['name'], description: source['description'],url: source['url'], category: source['category'], language: source['language'], country: source['country'])}
+       end 
+    
+   def create_articles(article_list)
+            article_list.each{|article|Article.create(source_id: Source.source_search_name(article['source']['id']).id,author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
+   end 
+
     def welcome(name)
         puts "Welcome to NewsCruncher, #{name}!".colorize(:light_blue)
       end
-
 
     def get_name
         prompt = TTY::Prompt.new 
@@ -37,39 +44,6 @@ class CLI
             # binding.pry 
      end
 
-     def get_articles(keyword_search) 
-        articles = JSON.parse(RestClient.get"https://newsapi.org/v2/everything?q=#{keyword_search}&from=2019-08-20&to=2019-08-20&language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad")
-     end
-
-     def create_article(articles)
-        new_articles = articles.each{|article| Article.create(source_id: Source.source_search_name(article['source']['id'])).id}
-        binding.pry 
-        #author: article['author'], title: article['title'], description: article['description'], url: article['url'], urlToImage: article['urlToImage'], publishedAt: article['publishedAt'],  content: article['content'])}
-            
-    end
-def search_articles 
-    prompt = TTY::Prompt.new 
-    keyword_search = prompt.ask("Please enter the article keyword")
-    prompt = TTY::Prompt.new 
-    articles_with_keyword = get_articles(keyword_search).select{|array|array['articles']}.values[0]
-    # binding.pry
-    create_article(articles_with_keyword)
-    matching_titles = saved_articles
-    articles = prompt.select("Articles matching your search:",matching_keyword)
-    article_content = Article.find{|article|article.title == articles}.content
-    puts article_content
-        save_article(articles, $current_user)
-end
-
-def save_article(article,user)
-    prompt = TTY::Prompt.new 
-    save_article = prompt.yes?("Would you like to save this article?")
-    if true 
-        User.save_favorite_article(article,user)
-    else welcome_options
-    end
-end
-
 def headlines
     prompt = TTY::Prompt.new
     headlines = Article.all.map{|article|article.title}
@@ -79,46 +53,6 @@ def headlines
     puts article_content
     save_article(article_id, $current_user)
 end
-
-def save_prompt(source_name, user)
-    prompt = TTY::Prompt.new 
-    save_source = prompt.yes?("Would you like to save this source?")
-    if true 
-        User.save_favorite_by_name(source_name, user)
-    else welcome_options
-    end
-    welcome_options
-end
-
-def search_sources_by_category 
-    prompt = TTY::Prompt.new
-        category_search = prompt.select("Please choose from the following categories:",%w(General Technology Business Sports Entertainment Health Science))	  
-       Source.source_search_by_category(category_search.downcase)
-        prompt = TTY::Prompt.new 
-        search_results = Source.source_search_by_category(category_search.downcase)
-        # binding.pry
-        to_save = prompt.select("Please choose from the following sources:",search_results)
-        #binding.pry
-        save_prompt(to_save, $current_user)
-        welcome_options
-end
-
-def search_sources_by_name 
-    prompt = TTY::Prompt.new 
-    name_search = prompt.ask("Please enter the name of the source you wish to find:")
-    Source.source_search_by_name(name_search)
-end 
-
-def search_sources
-    prompt = TTY::Prompt.new 
-    selection = prompt.select("Would you like to search by name, or by category?",["Search by name","Search by category"])
-if selection.include?("name")
-    search_sources_by_name
-elsif selection.include?("category")
-        search_sources_by_category
-    end
-    welcome_options
-end 
 
 def latest_from_favorite_sources
     puts  FavoriteSource.headlines_from_favorite_sources($current_user)
@@ -132,16 +66,6 @@ def display_favorite_articles
     article_id = Article.find{|article|article.title == article_selection}.id
     print article_content
 end
-
-
-
-def get_headlines(source_name)
-    source_for_headlines = Source.find{|source|source.name == source_name}
-    url = source_for_headlines.url.sub(/^https?\:\/\/(www.)?/,'')
-    # binding.pry
-    source_headlines = JSON.parse(RestClient.get"https://newsapi.org/v2/everything?domains=#{url}&language=en&apiKey=18f1d787fdf24f74b097f41574c6dbad")
-#  binding.pry
- end 
 
 def display_favorite_sources
     favorite_source_names = $current_user.get_favorite_sources
@@ -158,6 +82,8 @@ def display_favorite_sources
     # binding.pry
     
 end
+
+
 
 
 end
