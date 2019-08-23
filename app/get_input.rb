@@ -63,9 +63,9 @@ class CLI
             welcome_options
         elsif save_source
             source_id = get_source_id(source)[0]
-            binding.pry
+            # binding.pry
             new_favorite = FavoriteSource.create(user_id: user.id,source_id: source_id)
-binding.pry
+# binding.pry
             puts "Success! The source is now available in your Favorite Sources."
         end
        welcome_options
@@ -93,6 +93,9 @@ def create_articles(articles)
  def display_favorite_articles
    prompt = TTY::Prompt.new
    favorite_articles = FavoriteArticle.where(user_id: $current_user.id)
+   if favorite_articles.empty?
+   puts "No favorite articles yet!"
+else
    articles = $current_user.articles.map{|article|article.title}
 #    binding.pry
 #    article_titles = Article.select{|article|article.id == }
@@ -103,21 +106,29 @@ def create_articles(articles)
    puts article_content
 #    binding.pry
 end
-
+end
 
 
 
 def display_favorite_sources
     favorite_source_names = $current_user.get_favorite_sources
+    if favorite_source_names.empty?
+        puts "No favorite sources yet!"
+    else
     prompt = TTY::Prompt.new 
     source_name = prompt.select("Favorite sources:",favorite_source_names.uniq)
+    
     current_source = Source.find_by(name: source_name)
+    # binding.pry
+
     current_articles = Article.where(source_id: current_source.id)
+   
     current_article_title=prompt.select("Latest headlines from:",current_articles.title)
     selected_article = Article.where(title: current_article_title).find{|article|article}.content
     article_id_to_save = Article.where(title:current_article_title).find{|article|article}.id
     puts selected_article
     save_article?(article_id_to_save,$current_user)
+    end
 end
 
 
