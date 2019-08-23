@@ -42,11 +42,10 @@ class CLI
      def save_article?(article,user)
         prompt = TTY::Prompt.new 
         save_article = prompt.yes?("Would you like to save this article?")
-        if false 
-        welcome_options
-        elsif
+        if input == "yes"
             FavoriteArticle.create(user_id: user.id,article_id: article)
             puts "Success! The article is now available in your Favorite Articles."
+        else
        welcome_options
         end
     end
