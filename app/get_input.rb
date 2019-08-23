@@ -42,7 +42,7 @@ class CLI
      def save_article?(article,user)
         prompt = TTY::Prompt.new 
         save_article = prompt.yes?("Would you like to save this article?")
-        if true
+        if save_article
             FavoriteArticle.create(user_id: user.id,article_id: article)
             puts "Success! The article is now available in your Favorite Articles."
         else
@@ -61,7 +61,7 @@ class CLI
         save_source= prompt.yes?("Would you like to save this source?")
         if false
             welcome_options
-        elsif true
+        elsif save_source
             source_id = get_source_id(source)[0]
             binding.pry
             new_favorite = FavoriteSource.create(user_id: user.id,source_id: source_id)
