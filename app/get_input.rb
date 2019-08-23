@@ -50,13 +50,22 @@ class CLI
         end
     end
 
-    def save_source?(article,user)
+    def get_source_id(source)
+        id = Source.where(name: source).ids
+        # binding.pry 
+    end 
+
+
+    def save_source?(source,user)
         prompt = TTY::Prompt.new 
         save_source= prompt.yes?("Would you like to save this source?")
         if false
             welcome_options
-        elsif true 
-            FavoriteSource.create(user_id: user.id,source_id: source)
+        elsif true
+            source_id = get_source_id(source)[0]
+            binding.pry
+            new_favorite = FavoriteSource.create(user_id: user.id,source_id: source_id)
+binding.pry
             puts "Success! The source is now available in your Favorite Sources."
         end
        welcome_options
