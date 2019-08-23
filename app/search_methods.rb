@@ -16,9 +16,13 @@ def search_articles
     keyword_search = prompt.ask("Please enter the article keyword", required: true)
     prompt = TTY::Prompt.new 
     articles_with_keyword = Article.where('content LIKE ?',"%#{keyword_search}%").all
+    if articles_with_keyword.empty?
+        puts "No articles found!"
+    else
     article_titles = articles_with_keyword.map{|article|article.title}
     article_selection = prompt.select("The following articles were found:", articles_with_keyword.title)
          article_to_save = Article.find_by(title: article_selection).id
          save_article?(article_to_save, $current_user)
          welcome_options
+    end 
 end
