@@ -88,7 +88,7 @@ def create_articles(articles)
 #    binding.pry
 #    article_titles = Article.select{|article|article.id == }
 #    binding.pry
-   select_article = prompt.select("Select from the following articles:", articles)
+   select_article = prompt.select("Select from the following articles:", articles.uniq)
    article_content = Article.find{|article|article.title == select_article}.content
 #    binding.pry
    puts article_content
@@ -101,7 +101,7 @@ end
 def display_favorite_sources
     favorite_source_names = $current_user.get_favorite_sources
     prompt = TTY::Prompt.new 
-    source_name = prompt.select("Favorite sources:",favorite_source_names)
+    source_name = prompt.select("Favorite sources:",favorite_source_names.uniq)
     current_source = Source.find_by(name: source_name)
     current_articles = Article.where(source_id: current_source.id)
     current_article_title=prompt.select("Latest headlines from:",current_articles.title)
