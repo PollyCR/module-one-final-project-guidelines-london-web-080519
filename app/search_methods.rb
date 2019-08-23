@@ -4,9 +4,7 @@ def search_sources_by_category
        Source.source_search_by_category(category_search.downcase)
         prompt = TTY::Prompt.new 
         search_results = Source.source_search_by_category(category_search.downcase)
-        # binding.pry
         to_save = prompt.select("Please choose from the following sources:",search_results)
-        #binding.pry
         save_source?(to_save, $current_user)
         welcome_options
 end

@@ -18,7 +18,6 @@ class CLI
         prompt = TTY::Prompt.new
         selection = prompt.select("Please select from the following options:".colorize(:green), ["Headlines","Find article","Find source","My favorite articles","My favorite sources", "Exit"])
     if selection == "Headlines"
-        # binding.pry
   headlines
   welcome_options
         elsif selection == "Find article"
@@ -36,7 +35,7 @@ class CLI
         else selection == "Exit"
             exit
         end
-            # binding.pry 
+
      end
 
      def save_article?(article,user)
@@ -52,7 +51,6 @@ class CLI
 
     def get_source_id(source)
         id = Source.where(name: source).ids
-        # binding.pry 
     end 
 
 
@@ -63,9 +61,7 @@ class CLI
             welcome_options
         elsif save_source
             source_id = get_source_id(source)[0]
-            # binding.pry
             new_favorite = FavoriteSource.create(user_id: user.id,source_id: source_id)
-# binding.pry
             puts "Success! The source is now available in your Favorite Sources."
         end
        welcome_options
@@ -77,7 +73,6 @@ def headlines
     todays_headlines = prompt.select("Today's headlines",headlines)
     article_content = Article.find{|article|article.title == todays_headlines}.content
     article_id = Article.find{|article|article.title == todays_headlines}.id
-    # binding.pry
     puts article_content
     sleep 2
     save_article?(article_id,$current_user)
@@ -97,14 +92,9 @@ def create_articles(articles)
    puts "No favorite articles yet!"
 else
    articles = $current_user.articles.map{|article|article.title}
-#    binding.pry
-#    article_titles = Article.select{|article|article.id == }
-#    binding.pry
    select_article = prompt.select("Select from the following articles:", articles.uniq)
    article_content = Article.find{|article|article.title == select_article}.content
-#    binding.pry
    puts article_content
-#    binding.pry
 end
 end
 
@@ -119,7 +109,7 @@ def display_favorite_sources
     source_name = prompt.select("Favorite sources:",favorite_source_names.uniq)
     
     current_source = Source.find_by(name: source_name)
-    # binding.pry
+  
 
     current_articles = Article.where(source_id: current_source.id)
    
