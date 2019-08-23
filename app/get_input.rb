@@ -42,9 +42,9 @@ class CLI
      def save_article?(article,user)
         prompt = TTY::Prompt.new 
         save_article = prompt.yes?("Would you like to save this article?")
-        if "no"||"n"
-            welcome_options
-        elsif true 
+        if false 
+        welcome_options
+        elsif
             FavoriteArticle.create(user_id: user.id,article_id: article)
             puts "Success! The article is now available in your Favorite Articles."
        welcome_options
@@ -54,7 +54,7 @@ class CLI
     def save_source?(article,user)
         prompt = TTY::Prompt.new 
         save_source= prompt.yes?("Would you like to save this source?")
-        if "no"||"n"
+        if false
             welcome_options
         elsif true 
             FavoriteSource.create(user_id: user.id,source_id: source)
@@ -69,7 +69,9 @@ def headlines
     todays_headlines = prompt.select("Today's headlines",headlines)
     article_content = Article.find{|article|article.title == todays_headlines}.content
     article_id = Article.find{|article|article.title == todays_headlines}.id
+    # binding.pry
     puts article_content
+    sleep 2
     save_article?(article_id,$current_user)
 end
 

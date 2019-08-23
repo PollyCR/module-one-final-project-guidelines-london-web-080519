@@ -18,17 +18,6 @@ def search_articles
     articles_with_keyword = Article.where('content LIKE ?',"%#{keyword_search}%").all
     article_titles = articles_with_keyword.map{|article|article.title}
     article_selection = prompt.select("The following articles were found:", articles_with_keyword.title)
-
-    
-    # article_list = articles_with_keyword['articles'].map{|article|article
-    # binding.pry
-    # # .values[0]
-    # # binding.pry
-    # create_articles(articles_with_keyword['articles'])
-    # articles = prompt.select("Articles matching your search:",article_list)
-    # article_content = Article.find{|article|article.title == articles}.content
-    # article_to_save = Article.find{|article|article.title == articles}.id
-    # puts article_content    
          article_to_save = Article.find_by(title: article_selection).id
          save_article?(article_to_save, $current_user)
          welcome_options
