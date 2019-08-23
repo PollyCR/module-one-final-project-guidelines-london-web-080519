@@ -6,12 +6,18 @@ class CLI
         puts "Welcome to NewsCruncher, #{name}!".colorize(:light_blue)
     end
 
+    def new_user
+        user = User.new
+        user.name = gets.chomp
+        user.save 
+        return user
+      end
+
     def get_name
         prompt = TTY::Prompt.new 
         $name = prompt.ask('What is your name?', default: ENV['USER'])
         welcome($name)
         $current_user = User.find_or_create_by(name: $name)
-
     end 
     
     def welcome_options 
@@ -37,6 +43,32 @@ class CLI
         end
 
      end
+     def search_sources_by_category 
+        prompt = TTY::Prompt.new
+            category_search = prompt.select("Please choose from the following categories:",%w(General Technology Business Sports Entertainment Health Science))	  
+           Source.source_search_by_category(category_search.downcase)
+            prompt = TTY::Prompt.new 
+            search_results = Source.source_search_by_category(category_search.downcase)
+            to_save = prompt.select("Please choose from the following sources:",search_results)
+            save_source?(to_save, $current_user)
+            welcome_options
+    end
+    
+    def search_articles 
+        prompt = TTY::Prompt.new 
+        keyword_search = prompt.ask("Please enter the article keyword", required: true)
+        prompt = TTY::Prompt.new 
+        articles_with_keyword = Article.where('content LIKE ?',"%#{keyword_search}%").all
+        if articles_with_keyword.empty?
+            puts "No articles found!"
+        else
+        article_titles = articles_with_keyword.map{|article|article.title}
+        article_selection = prompt.select("The following articles were found:", articles_with_keyword.title)
+             article_to_save = Article.find_by(title: article_selection).id
+             save_article?(article_to_save, $current_user)
+             welcome_options
+        end 
+    end
 
      def save_article?(article,user)
         prompt = TTY::Prompt.new 
@@ -97,8 +129,6 @@ else
    puts article_content
 end
 end
-
-
 
 def display_favorite_sources
     favorite_source_names = $current_user.get_favorite_sources
